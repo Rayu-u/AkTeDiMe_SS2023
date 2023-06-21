@@ -24,6 +24,7 @@ export class ListItem {
    */
   // UNSURE: Do i even need to expose the name as a prop?
   @Prop({ mutable: true }) name: string;
+  @Prop({ mutable: true }) updateTool: boolean;
   // id: number;
   
   // referencing the host element
@@ -35,9 +36,17 @@ export class ListItem {
 
   private onSubmitted(e: Event) {
     e.preventDefault();
+    console.log(this.name);
+    
     this.name = ((e.target as HTMLFormElement).firstChild as HTMLInputElement).value;
-    this.currentState = States.READ;    
+    this.currentState = States.READ;
+    this.forceUpdate()
     return;
+  }
+
+  // probably really bad to use their name
+  forceUpdate() {
+    this.updateTool = !this.updateTool;
   }
 
   render() {

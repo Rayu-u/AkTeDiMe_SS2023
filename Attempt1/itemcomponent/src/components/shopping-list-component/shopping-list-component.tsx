@@ -6,6 +6,7 @@ import { Component, Host, h } from '@stencil/core';
 
 import '@shoelace-style/shoelace/dist/shoelace.js';
 
+// this is the component for the whole list component. It is at the uppermost level and serves as the container of the cmp.
 
 
 @Component({
@@ -18,10 +19,7 @@ export class ShoppingListComponent {
   render() {
     return (
       <Host class="sl-theme-light">
-        <list-item name=""></list-item>
-        <sl-select label="Select one">
-          <sl-option value="Hallo">Hallo</sl-option>
-        </sl-select>
+        <list-management-component></list-management-component>
       </Host>
     );
   }

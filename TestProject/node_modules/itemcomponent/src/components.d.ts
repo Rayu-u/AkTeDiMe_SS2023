@@ -11,6 +11,9 @@ export namespace Components {
           * The name and id of this item
          */
         "name": string;
+        "updateTool": boolean;
+    }
+    interface ListManagementComponent {
     }
     interface ShoppingListComponent {
     }
@@ -26,6 +29,12 @@ declare global {
         prototype: HTMLListItemElement;
         new (): HTMLListItemElement;
     };
+    interface HTMLListManagementComponentElement extends Components.ListManagementComponent, HTMLStencilElement {
+    }
+    var HTMLListManagementComponentElement: {
+        prototype: HTMLListManagementComponentElement;
+        new (): HTMLListManagementComponentElement;
+    };
     interface HTMLShoppingListComponentElement extends Components.ShoppingListComponent, HTMLStencilElement {
     }
     var HTMLShoppingListComponentElement: {
@@ -34,6 +43,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "list-item": HTMLListItemElement;
+        "list-management-component": HTMLListManagementComponentElement;
         "shopping-list-component": HTMLShoppingListComponentElement;
     }
 }
@@ -44,11 +54,15 @@ declare namespace LocalJSX {
          */
         "name"?: string;
         "onItemEdited"?: (event: ListItemCustomEvent<ListItem>) => void;
+        "updateTool"?: boolean;
+    }
+    interface ListManagementComponent {
     }
     interface ShoppingListComponent {
     }
     interface IntrinsicElements {
         "list-item": ListItem;
+        "list-management-component": ListManagementComponent;
         "shopping-list-component": ShoppingListComponent;
     }
 }
@@ -57,6 +71,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "list-item": LocalJSX.ListItem & JSXBase.HTMLAttributes<HTMLListItemElement>;
+            "list-management-component": LocalJSX.ListManagementComponent & JSXBase.HTMLAttributes<HTMLListManagementComponentElement>;
             "shopping-list-component": LocalJSX.ShoppingListComponent & JSXBase.HTMLAttributes<HTMLShoppingListComponentElement>;
         }
     }

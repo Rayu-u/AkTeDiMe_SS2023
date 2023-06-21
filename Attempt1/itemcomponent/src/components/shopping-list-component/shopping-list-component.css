@@ -1,6 +1,6 @@
 @import "../light.css";
 
-:host, .sl-theme-dark {
+:host {
   display: block;
   min-width: 700px;
   width: 700px;
