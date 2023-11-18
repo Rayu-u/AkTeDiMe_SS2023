@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "@shoelace-style/shoelace": "^2.4.0",
-    "@stencil/core": "^3.0.0"
+    "@stencil/core": "^3.0.0",
+    "stencil": "^0.0.5"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",

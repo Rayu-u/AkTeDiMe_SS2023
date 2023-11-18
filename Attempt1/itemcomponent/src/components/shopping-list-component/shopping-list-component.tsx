@@ -14,6 +14,7 @@ import '@shoelace-style/shoelace/dist/shoelace.js';
   styleUrls: ['shopping-list-component.css'],
   shadow: true,
 })
+
 export class ShoppingListComponent {
 
   render() {
