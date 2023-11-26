@@ -6,56 +6,55 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface GoShoppinListApp {
+        "userkey": string;
+    }
+    interface ListTitle {
         /**
-          * The first name
+          * The title of the list
          */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "title": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLGoShoppinListAppElement extends Components.GoShoppinListApp, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLGoShoppinListAppElement: {
+        prototype: HTMLGoShoppinListAppElement;
+        new (): HTMLGoShoppinListAppElement;
+    };
+    interface HTMLListTitleElement extends Components.ListTitle, HTMLStencilElement {
+    }
+    var HTMLListTitleElement: {
+        prototype: HTMLListTitleElement;
+        new (): HTMLListTitleElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "go-shoppin-list-app": HTMLGoShoppinListAppElement;
+        "list-title": HTMLListTitleElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface GoShoppinListApp {
+        "userkey"?: string;
+    }
+    interface ListTitle {
         /**
-          * The first name
+          * The title of the list
          */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+        "title"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "go-shoppin-list-app": GoShoppinListApp;
+        "list-title": ListTitle;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "go-shoppin-list-app": LocalJSX.GoShoppinListApp & JSXBase.HTMLAttributes<HTMLGoShoppinListAppElement>;
+            "list-title": LocalJSX.ListTitle & JSXBase.HTMLAttributes<HTMLListTitleElement>;
         }
     }
 }

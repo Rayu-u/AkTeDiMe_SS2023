@@ -2,31 +2,17 @@ import { Component, Prop, h } from '@stencil/core';
 import { format } from '../../utils/utils';
 
 @Component({
-  tag: 'my-component',
+  tag: 'list-title',
   styleUrl: 'my-component.css',
   shadow: true,
 })
 export class MyComponent {
   /**
-   * The first name
+   * The title of the list
    */
-  @Prop() first: string;
-
-  /**
-   * The middle name
-   */
-  @Prop() middle: string;
-
-  /**
-   * The last name
-   */
-  @Prop() last: string;
-
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
-  }
+  @Prop() title: string;
 
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    return <h1>{this.title}</h1>;
   }
 }
