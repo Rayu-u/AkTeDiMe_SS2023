@@ -7,7 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface GoShoppinListApp {
-        "userkey": string;
+    }
+    interface ListItem {
+        "id": string;
+        "value": string;
     }
     interface ListTitle {
         /**
@@ -16,12 +19,34 @@ export namespace Components {
         "title": string;
     }
 }
+export interface ListItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLListItemElement;
+}
 declare global {
     interface HTMLGoShoppinListAppElement extends Components.GoShoppinListApp, HTMLStencilElement {
     }
     var HTMLGoShoppinListAppElement: {
         prototype: HTMLGoShoppinListAppElement;
         new (): HTMLGoShoppinListAppElement;
+    };
+    interface HTMLListItemElementEventMap {
+        "removeListItem": any;
+        "updateListItem": any;
+    }
+    interface HTMLListItemElement extends Components.ListItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLListItemElementEventMap>(type: K, listener: (this: HTMLListItemElement, ev: ListItemCustomEvent<HTMLListItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLListItemElementEventMap>(type: K, listener: (this: HTMLListItemElement, ev: ListItemCustomEvent<HTMLListItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLListItemElement: {
+        prototype: HTMLListItemElement;
+        new (): HTMLListItemElement;
     };
     interface HTMLListTitleElement extends Components.ListTitle, HTMLStencilElement {
     }
@@ -31,12 +56,18 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "go-shoppin-list-app": HTMLGoShoppinListAppElement;
+        "list-item": HTMLListItemElement;
         "list-title": HTMLListTitleElement;
     }
 }
 declare namespace LocalJSX {
     interface GoShoppinListApp {
-        "userkey"?: string;
+    }
+    interface ListItem {
+        "id"?: string;
+        "onRemoveListItem"?: (event: ListItemCustomEvent<any>) => void;
+        "onUpdateListItem"?: (event: ListItemCustomEvent<any>) => void;
+        "value"?: string;
     }
     interface ListTitle {
         /**
@@ -46,6 +77,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "go-shoppin-list-app": GoShoppinListApp;
+        "list-item": ListItem;
         "list-title": ListTitle;
     }
 }
@@ -54,6 +86,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "go-shoppin-list-app": LocalJSX.GoShoppinListApp & JSXBase.HTMLAttributes<HTMLGoShoppinListAppElement>;
+            "list-item": LocalJSX.ListItem & JSXBase.HTMLAttributes<HTMLListItemElement>;
             "list-title": LocalJSX.ListTitle & JSXBase.HTMLAttributes<HTMLListTitleElement>;
         }
     }

@@ -1,4 +1,4 @@
-import { Component, Prop, h, Element} from '@stencil/core';
+import { Component, State, Listen, h} from '@stencil/core';
 import { shoppingList } from './example-data.js'
 
 @Component({
@@ -10,40 +10,53 @@ export class goShoppinListApp {
   the shopping list component, upmost level of the whole component, delivered to the user
   */
 
-  @Prop() userkey: string;
+  @State() listItems: any;
+  @State() newListItem;
+
+  componentWillLoad() {
+    this.listItems = [{ id: 1, value: 2}];
+  }
   
-  // @Prop() listTitle: string;
-  // @Prop() creationDate: string;
-  // @Prop() admin: string;
-  // @Prop() listItems: Array<Object>;
-  // @Element() el!: HTMLElement;
-
-  connectedCallback() {
-    // let dataString: string = JSON.stringify(shoppingList);
-    // let listObject = JSON.parse(dataString);
-    // this.listTitle = listObject.title;
-    // this.creationDate = listObject.dateOfCreation;
-    // this.admin = listObject.admin;
-    // this.listItems = listObject.listItems;
-
-    // console.log(this.listTitle, this.creationDate, this.admin, this.listItems);
-    console.log("test");
+  @Listen('removeListItem')
+  removeListItem(event) {
+    // creates a new array with only elements which pass the test
+    this.listItems = this.listItems.filter((listItem) => {
+      return listItem.id != event.detail;
+    });
   }
 
+  @Listen('updateListItem')
+  updateValue(event) {
+    //in order for template to rerender
+    const listItems = this.listItems.concat([]);
+
+    let listItemToUpdate = listItems.filter((item) => {
+      return item.id == event.detail.id;
+    })[0];
+
+    listItemToUpdate.value = event.detail.value;
+
+    this.listItems = listItems;
+  }
+
+  updateNewListItem(newListItem) {
+    this.listItems = [...this.listItems, { id: Date.now(), value: newListItem.value }];
+  }
 
   render() {
     return (
       <div>
-        <h1>Hier steht der Listenname</h1>
-        <p>Creation Date: 19.11.2023</p>
-        <p>Admin: ""</p>
-        <div>Container für List-items
-          <go-shopping-list-items></go-shopping-list-items>
-        </div>
+        <input onChange={e => this.updateNewListItem(e.target)}/>
+
+        <ul>
+          {this.listItems.map((item) => {
+            return <list-item value={item.value} id={item.id}></list-item>
+          })}
+        </ul>
+        
       </div>
-    )
+    );
   }
 }
 
-// TODO Liste, tutorial folgen. 
-// svelte komponentenbasierte systeme, nie wieder react angular
+// following this tutorial: https://www.javascripttuts.com/creating-a-todo-application-using-stencil/
