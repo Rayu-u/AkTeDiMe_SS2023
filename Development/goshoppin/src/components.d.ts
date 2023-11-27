@@ -8,8 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface GoShoppinListApp {
     }
+    interface ItemAdder {
+    }
     interface ListItem {
         "id": string;
+        "quantity": string;
         "value": string;
     }
     interface ListTitle {
@@ -18,6 +21,10 @@ export namespace Components {
          */
         "title": string;
     }
+}
+export interface ItemAdderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLItemAdderElement;
 }
 export interface ListItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -29,6 +36,23 @@ declare global {
     var HTMLGoShoppinListAppElement: {
         prototype: HTMLGoShoppinListAppElement;
         new (): HTMLGoShoppinListAppElement;
+    };
+    interface HTMLItemAdderElementEventMap {
+        "addListItem": any;
+    }
+    interface HTMLItemAdderElement extends Components.ItemAdder, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLItemAdderElementEventMap>(type: K, listener: (this: HTMLItemAdderElement, ev: ItemAdderCustomEvent<HTMLItemAdderElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLItemAdderElementEventMap>(type: K, listener: (this: HTMLItemAdderElement, ev: ItemAdderCustomEvent<HTMLItemAdderElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLItemAdderElement: {
+        prototype: HTMLItemAdderElement;
+        new (): HTMLItemAdderElement;
     };
     interface HTMLListItemElementEventMap {
         "removeListItem": any;
@@ -56,6 +80,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "go-shoppin-list-app": HTMLGoShoppinListAppElement;
+        "item-adder": HTMLItemAdderElement;
         "list-item": HTMLListItemElement;
         "list-title": HTMLListTitleElement;
     }
@@ -63,10 +88,14 @@ declare global {
 declare namespace LocalJSX {
     interface GoShoppinListApp {
     }
+    interface ItemAdder {
+        "onAddListItem"?: (event: ItemAdderCustomEvent<any>) => void;
+    }
     interface ListItem {
         "id"?: string;
         "onRemoveListItem"?: (event: ListItemCustomEvent<any>) => void;
         "onUpdateListItem"?: (event: ListItemCustomEvent<any>) => void;
+        "quantity"?: string;
         "value"?: string;
     }
     interface ListTitle {
@@ -77,6 +106,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "go-shoppin-list-app": GoShoppinListApp;
+        "item-adder": ItemAdder;
         "list-item": ListItem;
         "list-title": ListTitle;
     }
@@ -86,6 +116,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "go-shoppin-list-app": LocalJSX.GoShoppinListApp & JSXBase.HTMLAttributes<HTMLGoShoppinListAppElement>;
+            "item-adder": LocalJSX.ItemAdder & JSXBase.HTMLAttributes<HTMLItemAdderElement>;
             "list-item": LocalJSX.ListItem & JSXBase.HTMLAttributes<HTMLListItemElement>;
             "list-title": LocalJSX.ListTitle & JSXBase.HTMLAttributes<HTMLListTitleElement>;
         }

@@ -12,6 +12,7 @@ export class ListItem {
 
   @Prop() value: string;
   @Prop() id: string;
+  @Prop() quantity: string;
 
   @State() isEditable = false;
   

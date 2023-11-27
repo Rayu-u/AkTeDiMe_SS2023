@@ -1,8 +1,11 @@
-import { Component, State, Listen, h} from '@stencil/core';
-import { shoppingList } from './example-data.js'
+import { Component, State, Listen, h, Host} from '@stencil/core';
+// import { shoppingList } from './example-data.js'
+
 
 @Component({
-  tag: 'go-shoppin-list-app'
+  tag: 'go-shoppin-list-app',
+  styleUrls: ['sl-light.css', 'main-app-styles.css'],
+  shadow: false
 })
 
 export class goShoppinListApp {
@@ -14,9 +17,15 @@ export class goShoppinListApp {
   @State() newListItem;
 
   componentWillLoad() {
-    this.listItems = [{ id: 1, value: 2}];
-  }
+    this.listItems = [{ id: 1, name: "Brot", quantity: 3}];
+  }l
   
+  @Listen('addListItem')
+  addListItem(event) {
+    // adds the item
+    this.listItems = [...this.listItems, { id: event.detail.id, name: event.detail.name, quantity: event.detail.quantity }];
+  }
+
   @Listen('removeListItem')
   removeListItem(event) {
     // creates a new array with only elements which pass the test
@@ -34,23 +43,19 @@ export class goShoppinListApp {
       return item.id == event.detail.id;
     })[0];
 
-    listItemToUpdate.value = event.detail.value;
+    listItemToUpdate.name = event.detail.name;
 
     this.listItems = listItems;
-  }
-
-  updateNewListItem(newListItem) {
-    this.listItems = [...this.listItems, { id: Date.now(), value: newListItem.value }];
   }
 
   render() {
     return (
       <div>
-        <input onChange={e => this.updateNewListItem(e.target)}/>
+        <item-adder></item-adder>
 
         <ul>
           {this.listItems.map((item) => {
-            return <list-item value={item.value} id={item.id}></list-item>
+            return <list-item value={item.name} id={item.id} quantity={item.quantity}></list-item>
           })}
         </ul>
         
