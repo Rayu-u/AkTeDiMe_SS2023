@@ -1,10 +1,12 @@
-import { Component, State, Listen, h, Host} from '@stencil/core';
+import { Component, State, Listen, h} from '@stencil/core';
+
+
 // import { shoppingList } from './example-data.js'
 
 
 @Component({
   tag: 'go-shoppin-list-app',
-  styleUrls: ['sl-light.css', 'main-app-styles.css'],
+  styleUrls: ['./app-layout.css'],
   shadow: false
 })
 
@@ -50,15 +52,17 @@ export class goShoppinListApp {
 
   render() {
     return (
-      <div>
-        <item-adder></item-adder>
+      <div id="bounding-box">
+        <div class="sl-theme-light">
+          <item-adder></item-adder>
 
-        <ul>
-          {this.listItems.map((item) => {
-            return <list-item value={item.name} id={item.id} quantity={item.quantity}></list-item>
-          })}
-        </ul>
-        
+          <ul>
+            {this.listItems.map((item) => {
+              return <list-item value={item.name} id={item.id} quantity={item.quantity}></list-item>
+            })}
+          </ul>
+          
+        </div>
       </div>
     );
   }

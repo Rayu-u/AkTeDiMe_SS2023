@@ -1,0 +1,9 @@
+:root,
+:host,
+.sl-theme-light {
+    --sl-color-neutral-70:  var(--sl-color-purple-50);
+}
+
+sl-input::part(input) {
+background-color: purple;
+}

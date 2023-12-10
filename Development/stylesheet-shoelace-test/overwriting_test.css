@@ -1,0 +1,5 @@
+:root,
+:host,
+.crazy::part(base) {
+  background-color: yellow;
+}

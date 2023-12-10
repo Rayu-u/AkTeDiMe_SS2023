@@ -1,15 +1,18 @@
-import { Component, State, Listen, h} from '@stencil/core';
+import { Component, h} from '@stencil/core';
 import { Event, EventEmitter } from '@stencil/core';
+// import 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/button/button.js';
+// import { SlButton } from '@shoelace-style/shoelace';
 
 @Component({
-  tag: 'item-adder'
+  tag: 'item-adder',
+  styleUrls: ['./sl-light.css', './main-app-styles.css', './test-style.css'],
 })
 
 export class ItemAdder {
   /* 
   the component to add a new item to the list with
   */
-
+                                                        
     @Event() addListItem: EventEmitter;
 
     onSubmission(e: Event) {
@@ -23,7 +26,7 @@ export class ItemAdder {
         return (
         <div>
             <form onSubmit={e => e.preventDefault()}>
-                <sl-input label="What item would you like to add to the list?" placeholder="Cheese"></sl-input>
+                <sl-input class="input" label="What item would you like to add to the list?" placeholder="Cheese"></sl-input>
                 <sl-input label="How many?" type="number" placeholder="3"></sl-input>
 
                 <sl-button onclick={e => this.onSubmission(e)} variant="default">
@@ -31,7 +34,6 @@ export class ItemAdder {
                 Add item
                 </sl-button>
             </form>
-
         </div>
         );
     }
