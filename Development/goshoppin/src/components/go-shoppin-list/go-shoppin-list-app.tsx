@@ -1,7 +1,8 @@
 import { Component, State, Listen, h} from '@stencil/core';
+import { DataService } from '../../utils/utils';
 
 
-// import { shoppingList } from './example-data.js'
+// import { JSONshoppingList } from '../../index.js';
 
 
 @Component({
@@ -17,10 +18,14 @@ export class goShoppinListApp {
 
   @State() listItems: any;
   @State() newListItem;
+  
+  @State() list;
 
-  componentWillLoad() {
+  async componentWillLoad() {
     this.listItems = [{ id: 1, name: "Brot", quantity: 3}];
-  }l
+    await DataService.getData().then(val  => this.list = val);
+    console.log(this.list);
+  }
   
   @Listen('addListItem')
   addListItem(event) {
