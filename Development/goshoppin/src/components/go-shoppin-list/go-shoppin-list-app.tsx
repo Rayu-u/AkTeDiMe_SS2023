@@ -58,10 +58,10 @@ export class goShoppinListApp {
 
   render() {
     return (
-      <div id="bounding-box">
-        <div class="sl-theme-light">
-          <item-adder></item-adder>
-          <list-display incomingItems={this.listItems}></list-display>          
+      <div class="sl-theme-light">
+        <div id="bounding-box">
+          <item-adder class="stand-alone"></item-adder>
+          <list-display class="stand-alone" incomingItems={this.listItems}></list-display>          
         </div>
       </div>
     );

@@ -1,6 +1,15 @@
 #bounding-box {
   width: 500px;
   display: flex;
-  background-color: rgb(162, 194, 221);
+  flex-direction: row;
+  background-color: rgb(145, 180, 209);
   padding: 15px;
+}
+
+.stand-alone {
+  display: flex;
+  border: 2px solid #274458; /* Border width, style, and color */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside the border */
+  margin: 5px;
 }

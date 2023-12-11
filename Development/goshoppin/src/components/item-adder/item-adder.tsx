@@ -25,13 +25,14 @@ export class ItemAdder {
     render() {
         return (
         <div>
+            <h3>Item hinzufügen:</h3>
             <form onSubmit={e => e.preventDefault()}>
-                <sl-input class="input" label="What item would you like to add to the list?" placeholder="Cheese"></sl-input>
-                <sl-input label="How many?" type="number" placeholder="3"></sl-input>
+                <sl-input class="input" label="Name" placeholder="Cheese"></sl-input>
+                <sl-input label="Anzahl" type="number" placeholder="3"></sl-input>
 
                 <sl-button onclick={e => this.onSubmission(e)} variant="default">
                 <sl-icon slot="prefix" name="clipboard-plus"></sl-icon>
-                Add item
+                Item hinzufügen
                 </sl-button>
             </form>
         </div>

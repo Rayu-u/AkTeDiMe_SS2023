@@ -23,6 +23,7 @@ export class ListDisplay {
   render() {
     return (
       <div>
+          <h3>Deine Liste:</h3>
           <ul>
           {this.items.map((item) => {
             return <list-item value={item.name} identifier={item.id} quantity={item.quantity}></list-item>
