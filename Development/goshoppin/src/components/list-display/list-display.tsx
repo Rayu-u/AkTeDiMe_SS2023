@@ -26,7 +26,7 @@ export class ListDisplay {
           <h3>Deine Liste:</h3>
           <div>
           {this.items.map((item) => {
-            return <list-item value={item.name} identifier={item.id} quantity={item.quantity}></list-item>
+            return <list-item value={item.name} identifier={item.id} quantity={item.quantity} user={item.responsibleUser}></list-item>
           })}
         </div>
       </div>

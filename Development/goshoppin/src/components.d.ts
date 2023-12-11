@@ -16,6 +16,7 @@ export namespace Components {
     interface ListItem {
         "identifier": number;
         "quantity": number;
+        "user": string;
         "value": string;
     }
     interface ListTitle {
@@ -109,6 +110,7 @@ declare namespace LocalJSX {
         "onRemoveListItem"?: (event: ListItemCustomEvent<any>) => void;
         "onUpdateListItem"?: (event: ListItemCustomEvent<any>) => void;
         "quantity"?: number;
+        "user"?: string;
         "value"?: string;
     }
     interface ListTitle {

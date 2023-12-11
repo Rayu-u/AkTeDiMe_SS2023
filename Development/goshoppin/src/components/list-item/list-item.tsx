@@ -13,6 +13,7 @@ export class ListItem {
   @Prop() value: string;
   @Prop() identifier: number;
   @Prop() quantity: number;
+  @Prop() user: string;
 
   @State() isEditable = false;
   
@@ -24,7 +25,8 @@ export class ListItem {
     if (e.code === "Enter") {
       let quant = e.target.parentElement.children[0].value;
       let name = e.target.parentElement.children[1].value;
-      this.updateThisItem(quant, name);
+      let user = e.target.previousElementSibling.children[2].value;
+      this.updateThisItem(quant, name, user);
       this.isEditable = false;
     }
   };
@@ -32,7 +34,8 @@ export class ListItem {
   saveChanges = e => {
     let quant = e.target.previousElementSibling.children[0].value;
     let name = e.target.previousElementSibling.children[1].value;
-    this.updateThisItem(quant, name);
+    let user = e.target.previousElementSibling.children[2].value;
+    this.updateThisItem(quant, name, user);
     this.isEditable = false;
   };
 
@@ -40,8 +43,8 @@ export class ListItem {
     this.removeListItem.emit(this.identifier);
   }
 
-  updateThisItem(quant, name) {
-    this.updateListItem.emit({quant: quant, name: name, id: this.identifier});
+  updateThisItem(quant, name, user) {
+    this.updateListItem.emit({quant: quant, name: name, id: this.identifier, user: user});
   }
 
   render() {
@@ -50,7 +53,7 @@ export class ListItem {
     if (!this.isEditable) {
 
       listItemTemplate = <div>
-        {this.quantity}x {this.value}
+        {this.quantity}x {this.value} von {this.user}
         <button onClick = {this.removeThisItem}>
           Entfernen
         </button>
@@ -66,6 +69,7 @@ export class ListItem {
         <form onKeyDown={this.handleKeyDown}>
           <input value={this.quantity}/>
           <input value={this.value}/>
+          <input value={this.user}/>
         </form>
         <button onClick = {this.saveChanges}>
           Speichern

@@ -19,16 +19,18 @@ export class ItemAdder {
         e.preventDefault;
         let name = (((e.target as HTMLElement).parentElement as HTMLFormElement).firstChild as HTMLInputElement).value;
         let quant = (((e.target as HTMLElement).parentElement as HTMLFormElement).children[1] as HTMLInputElement).value;
+        let user = (((e.target as HTMLElement).parentElement as HTMLFormElement).children[2] as HTMLInputElement).value;
         let id = Date.now();
-        this.addListItem.emit({id: id, name: name, quantity: quant});
+        this.addListItem.emit({id: id, name: name, quantity: quant, user: user});
     }
     render() {
         return (
         <div>
             <h3>Item hinzufügen:</h3>
             <form onSubmit={e => e.preventDefault()}>
-                <sl-input class="input" label="Name" placeholder="Cheese"></sl-input>
-                <sl-input label="Anzahl" type="number" placeholder="3"></sl-input>
+                <sl-input class="input" label="Name" placeholder="Was?"></sl-input>
+                <sl-input label="Anzahl" type="number" placeholder="Wie viel?"></sl-input>
+                <sl-input label="Wer bringts?" placeholder="Name"></sl-input>
 
                 <sl-button onclick={e => this.onSubmission(e)} variant="default">
                 <sl-icon slot="prefix" name="clipboard-plus"></sl-icon>

@@ -30,7 +30,7 @@ export class goShoppinListApp {
   @Listen('addListItem')
   addListItem(event) {
     // adds the item
-    let newListItem: ListItem = { id: event.detail.id, name: event.detail.name, quantity: event.detail.quantity };
+    let newListItem: ListItem = { id: event.detail.id, name: event.detail.name, quantity: event.detail.quantity, responsibleUser: event.detail.user };
     this.listItems = [...this.listItems, newListItem];
   }
 
@@ -53,6 +53,7 @@ export class goShoppinListApp {
 
     listItemToUpdate.name = event.detail.name;
     listItemToUpdate.quantity = event.detail.quant;
+    listItemToUpdate.responsibleUser = event.detail.user;
 
     this.listItems = listItems;
   }

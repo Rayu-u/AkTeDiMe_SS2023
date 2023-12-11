@@ -4,7 +4,7 @@ export interface ListItem {
   id: number;
   name: string;
   quantity: number;
-  // responsibleUser: string;
+  responsibleUser: string;
   // isDone: boolean;
 }
 // Shopping List
@@ -15,7 +15,7 @@ let listItem: ListItem = {
   id: 0,
   name: 'Hokkaido Kürbis',
   quantity: 6,
-  // responsibleUser: [users[0]],
+  responsibleUser: users[0],
   // isDone: false,
 };
 
@@ -30,7 +30,7 @@ let anotherListItem: ListItem = {
   id: 1,
   name: 'Creme Fraiche',
   quantity: 2,
-  // responsibleUser: [users[1]],
+  responsibleUser: users[1],
   // isDone: true,
 };
 
