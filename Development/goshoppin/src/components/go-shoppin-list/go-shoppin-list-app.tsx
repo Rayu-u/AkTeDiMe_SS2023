@@ -47,11 +47,12 @@ export class goShoppinListApp {
     //in order for template to rerender
     const listItems = this.listItems.concat([]);
 
-    let listItemToUpdate = listItems.filter((item) => {
+    let listItemToUpdate: ListItem = listItems.filter((item) => {
       return item.id == event.detail.id;
     })[0];
 
-    listItemToUpdate.name = event.detail.name;
+    listItemToUpdate.name = event.detail.value;
+    console.log("list item to update: " + listItemToUpdate);
 
     this.listItems = listItems;
   }

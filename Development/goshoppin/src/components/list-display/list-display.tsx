@@ -24,11 +24,11 @@ export class ListDisplay {
     return (
       <div>
           <h3>Deine Liste:</h3>
-          <ul>
+          <div>
           {this.items.map((item) => {
             return <list-item value={item.name} identifier={item.id} quantity={item.quantity}></list-item>
           })}
-        </ul>
+        </div>
       </div>
     )
   }

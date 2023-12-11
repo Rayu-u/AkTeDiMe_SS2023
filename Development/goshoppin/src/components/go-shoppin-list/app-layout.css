@@ -1,7 +1,8 @@
 #bounding-box {
-  width: 500px;
+  width: auto;
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   background-color: rgb(145, 180, 209);
   padding: 15px;
 }
@@ -12,4 +13,8 @@
   border-radius: 5px; /* Rounded corners */
   padding: 10px; /* Padding inside the border */
   margin: 5px;
+}
+
+display-list {
+  flex-grow: 2;
 }

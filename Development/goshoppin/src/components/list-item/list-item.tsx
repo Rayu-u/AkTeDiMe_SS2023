@@ -56,9 +56,9 @@ export class ListItem {
     }
 
     return (
-      <li onDblClick= {this.toggleEdition}>
-        {listItemTemplate};
-      </li>
+      <div onDblClick= {this.toggleEdition}>
+        {listItemTemplate}
+      </div>
     );
   }
 
