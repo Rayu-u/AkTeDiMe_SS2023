@@ -22,22 +22,26 @@ export class ListItem {
 
   handleKeyDown = e => {
     if (e.code === "Enter") {
-      this.updateThisItem(e.target.value);
+      let quant = e.target.parentElement.children[0].value;
+      let name = e.target.parentElement.children[1].value;
+      this.updateThisItem(quant, name);
       this.isEditable = false;
     }
   };
 
   saveChanges = e => {
-      this.updateThisItem(e.target.previousElementSibling.value);
-      this.isEditable = false;
+    let quant = e.target.previousElementSibling.children[0].value;
+    let name = e.target.previousElementSibling.children[1].value;
+    this.updateThisItem(quant, name);
+    this.isEditable = false;
   };
 
   removeThisItem = () => {
     this.removeListItem.emit(this.identifier);
   }
 
-  updateThisItem(value) {
-    this.updateListItem.emit({value: value, id: this.identifier});
+  updateThisItem(quant, name) {
+    this.updateListItem.emit({quant: quant, name: name, id: this.identifier});
   }
 
   render() {
@@ -46,7 +50,7 @@ export class ListItem {
     if (!this.isEditable) {
 
       listItemTemplate = <div>
-        {this.value}
+        {this.quantity}x {this.value}
         <button onClick = {this.removeThisItem}>
           Entfernen
         </button>
@@ -54,11 +58,15 @@ export class ListItem {
           Ändern
         </button>
       </div>
+      // console.log(this.value);
 
     } else {
 
       listItemTemplate = <div>
-        <input value={this.value} onKeyDown={this.handleKeyDown} />
+        <form onKeyDown={this.handleKeyDown}>
+          <input value={this.quantity}/>
+          <input value={this.value}/>
+        </form>
         <button onClick = {this.saveChanges}>
           Speichern
         </button>
@@ -66,7 +74,7 @@ export class ListItem {
     }
 
     return (
-      <div onDblClick= {this.toggleEdition}>
+      <div>
         {listItemTemplate}
       </div>
     );

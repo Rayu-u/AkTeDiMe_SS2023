@@ -51,8 +51,8 @@ export class goShoppinListApp {
       return item.id == event.detail.id;
     })[0];
 
-    listItemToUpdate.name = event.detail.value;
-    console.log("list item to update: " + listItemToUpdate);
+    listItemToUpdate.name = event.detail.name;
+    listItemToUpdate.quantity = event.detail.quant;
 
     this.listItems = listItems;
   }
