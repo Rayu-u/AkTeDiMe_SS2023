@@ -27,6 +27,11 @@ export class ListItem {
     }
   };
 
+  saveChanges = e => {
+      this.updateThisItem(e.target.previousElementSibling.value);
+      this.isEditable = false;
+  };
+
   removeThisItem = () => {
     this.removeListItem.emit(this.identifier);
   }
@@ -43,7 +48,10 @@ export class ListItem {
       listItemTemplate = <div>
         {this.value}
         <button onClick = {this.removeThisItem}>
-          X
+          Entfernen
+        </button>
+        <button onClick = {this.toggleEdition}>
+          Ändern
         </button>
       </div>
 
@@ -51,7 +59,9 @@ export class ListItem {
 
       listItemTemplate = <div>
         <input value={this.value} onKeyDown={this.handleKeyDown} />
-
+        <button onClick = {this.saveChanges}>
+          Speichern
+        </button>
       </div>
     }
 
