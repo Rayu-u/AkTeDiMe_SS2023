@@ -10,9 +10,12 @@ export namespace Components {
     }
     interface ItemAdder {
     }
+    interface ListDisplay {
+        "incomingItems": Object[];
+    }
     interface ListItem {
-        "id": string;
-        "quantity": string;
+        "identifier": number;
+        "quantity": number;
         "value": string;
     }
     interface ListTitle {
@@ -54,6 +57,12 @@ declare global {
         prototype: HTMLItemAdderElement;
         new (): HTMLItemAdderElement;
     };
+    interface HTMLListDisplayElement extends Components.ListDisplay, HTMLStencilElement {
+    }
+    var HTMLListDisplayElement: {
+        prototype: HTMLListDisplayElement;
+        new (): HTMLListDisplayElement;
+    };
     interface HTMLListItemElementEventMap {
         "removeListItem": any;
         "updateListItem": any;
@@ -81,6 +90,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "go-shoppin-list-app": HTMLGoShoppinListAppElement;
         "item-adder": HTMLItemAdderElement;
+        "list-display": HTMLListDisplayElement;
         "list-item": HTMLListItemElement;
         "list-title": HTMLListTitleElement;
     }
@@ -91,11 +101,14 @@ declare namespace LocalJSX {
     interface ItemAdder {
         "onAddListItem"?: (event: ItemAdderCustomEvent<any>) => void;
     }
+    interface ListDisplay {
+        "incomingItems"?: Object[];
+    }
     interface ListItem {
-        "id"?: string;
+        "identifier"?: number;
         "onRemoveListItem"?: (event: ListItemCustomEvent<any>) => void;
         "onUpdateListItem"?: (event: ListItemCustomEvent<any>) => void;
-        "quantity"?: string;
+        "quantity"?: number;
         "value"?: string;
     }
     interface ListTitle {
@@ -107,6 +120,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "go-shoppin-list-app": GoShoppinListApp;
         "item-adder": ItemAdder;
+        "list-display": ListDisplay;
         "list-item": ListItem;
         "list-title": ListTitle;
     }
@@ -117,6 +131,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "go-shoppin-list-app": LocalJSX.GoShoppinListApp & JSXBase.HTMLAttributes<HTMLGoShoppinListAppElement>;
             "item-adder": LocalJSX.ItemAdder & JSXBase.HTMLAttributes<HTMLItemAdderElement>;
+            "list-display": LocalJSX.ListDisplay & JSXBase.HTMLAttributes<HTMLListDisplayElement>;
             "list-item": LocalJSX.ListItem & JSXBase.HTMLAttributes<HTMLListItemElement>;
             "list-title": LocalJSX.ListTitle & JSXBase.HTMLAttributes<HTMLListTitleElement>;
         }

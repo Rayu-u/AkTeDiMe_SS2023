@@ -1,5 +1,6 @@
 #bounding-box {
   width: 500px;
   display: flex;
-  background-color: blue;
+  background-color: rgb(162, 194, 221);
+  padding: 15px;
 }

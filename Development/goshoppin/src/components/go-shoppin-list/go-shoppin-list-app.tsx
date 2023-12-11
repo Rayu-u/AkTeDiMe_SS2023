@@ -1,5 +1,5 @@
 import { Component, State, Listen, h} from '@stencil/core';
-import { DataService } from '../../utils/utils';
+import { DataService, ListItem } from '../../utils/utils';
 
 
 // import { JSONshoppingList } from '../../index.js';
@@ -16,21 +16,22 @@ export class goShoppinListApp {
   the shopping list component, upmost level of the whole component, delivered to the user
   */
 
-  @State() listItems: any;
+  @State() listItems: ListItem[];
   @State() newListItem;
   
   @State() list;
 
   async componentWillLoad() {
-    this.listItems = [{ id: 1, name: "Brot", quantity: 3}];
     await DataService.getData().then(val  => this.list = val);
-    console.log(this.list);
+    this.listItems = this.list.listItems;
+    // console.log(this.listItems);
   }
   
   @Listen('addListItem')
   addListItem(event) {
     // adds the item
-    this.listItems = [...this.listItems, { id: event.detail.id, name: event.detail.name, quantity: event.detail.quantity }];
+    let newListItem: ListItem = { id: event.detail.id, name: event.detail.name, quantity: event.detail.quantity };
+    this.listItems = [...this.listItems, newListItem];
   }
 
   @Listen('removeListItem')
@@ -60,13 +61,7 @@ export class goShoppinListApp {
       <div id="bounding-box">
         <div class="sl-theme-light">
           <item-adder></item-adder>
-
-          <ul>
-            {this.listItems.map((item) => {
-              return <list-item value={item.name} id={item.id} quantity={item.quantity}></list-item>
-            })}
-          </ul>
-          
+          <list-display incomingItems={this.listItems}></list-display>          
         </div>
       </div>
     );

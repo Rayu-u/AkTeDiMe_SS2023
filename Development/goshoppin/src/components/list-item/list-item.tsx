@@ -11,8 +11,8 @@ export class ListItem {
   @Event() updateListItem: EventEmitter;
 
   @Prop() value: string;
-  @Prop() id: string;
-  @Prop() quantity: string;
+  @Prop() identifier: number;
+  @Prop() quantity: number;
 
   @State() isEditable = false;
   
@@ -28,11 +28,11 @@ export class ListItem {
   };
 
   removeThisItem = () => {
-    this.removeListItem.emit(this.id);
+    this.removeListItem.emit(this.identifier);
   }
 
   updateThisItem(value) {
-    this.updateListItem.emit({value: value, id: this.id});
+    this.updateListItem.emit({value: value, id: this.identifier});
   }
 
   render() {

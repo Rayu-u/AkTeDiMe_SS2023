@@ -1,18 +1,22 @@
 import { DataController } from './data';
 
-export function format(first: string, middle: string, last: string): string {
-  return (first || '') + (middle ? ` ${middle}` : '') + (last ? ` ${last}` : '');
+export interface ListItem {
+  id: number;
+  name: string;
+  quantity: number;
+  // responsibleUser: string;
+  // isDone: boolean;
 }
-
 // Shopping List
 
 let users = ['Michelle', 'Christian', 'Melanie'];
 
-let listItem = {
+let listItem: ListItem = {
+  id: 0,
   name: 'Hokkaido Kürbis',
   quantity: 6,
-  responsibleUsers: [users[0]],
-  isDone: false,
+  // responsibleUser: [users[0]],
+  // isDone: false,
 };
 
 export let shoppingList = {
@@ -22,11 +26,12 @@ export let shoppingList = {
   listItems: [listItem],
 };
 
-let anotherListItem = {
+let anotherListItem: ListItem = {
+  id: 1,
   name: 'Creme Fraiche',
   quantity: 2,
-  responsibleUsers: [users[1]],
-  isDone: true,
+  // responsibleUser: [users[1]],
+  // isDone: true,
 };
 
 shoppingList.listItems.push(anotherListItem);
