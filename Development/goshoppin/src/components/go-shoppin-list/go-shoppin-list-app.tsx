@@ -22,6 +22,19 @@ export class goShoppinListApp {
   @State() list;
 
   async componentWillLoad() {
+    // good place to load data in.
+    // seems to just use normal js syntax for accessing rest APIs
+    // https://www.youtube.com/watch?v=S6RaX7EKVjw&list=PL1t38ZFD37GocR8Ujv_PGE95okFjSs9N1&index=8&ab_channel=CodingLocker
+    // fetch("URL")
+    //   .then(res => {
+    //     return res.json();
+    //   })
+    //   .then(parsedRes => {
+    //     var identifier = parsedRes['identifier'];
+    //     var goalcontent = identifier['identifier 2'];
+    //   })
+    // Tutorial end
+
     await DataService.getData().then(val  => this.list = val);
     this.listItems = this.list.listItems;
     // console.log(this.listItems);
