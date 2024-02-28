@@ -11,7 +11,6 @@ export class ListItem {
   @Event() updateListItem: EventEmitter;
 
   @Prop() value: string;
-  @Prop() identifier: number;
   @Prop() quantity: number;
   @Prop() user: string;
 
@@ -40,11 +39,15 @@ export class ListItem {
   };
 
   removeThisItem = () => {
-    this.removeListItem.emit(this.identifier);
+    this.removeListItem.emit({value: this.value, quantity: this.quantity, user: this.user});
   }
 
   updateThisItem(quant, name, user) {
-    this.updateListItem.emit({quant: quant, name: name, id: this.identifier, user: user});
+    this.updateListItem.emit({
+      quant: {old: this.quantity, new: quant}, 
+      name: {old: this.value, new: name}, 
+      user: {old: this.user, new: user}
+    });
   }
 
   render() {

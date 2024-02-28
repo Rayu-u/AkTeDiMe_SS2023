@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface GoShoppinListApp {
+        "listKeyProp": string;
     }
     interface ItemAdder {
     }
@@ -14,7 +15,6 @@ export namespace Components {
         "incomingItems": Object[];
     }
     interface ListItem {
-        "identifier": number;
         "quantity": number;
         "user": string;
         "value": string;
@@ -25,6 +25,8 @@ export namespace Components {
          */
         "title": string;
     }
+    interface NoListSupplied {
+    }
 }
 export interface ItemAdderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -33,6 +35,10 @@ export interface ItemAdderCustomEvent<T> extends CustomEvent<T> {
 export interface ListItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLListItemElement;
+}
+export interface NoListSuppliedCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLNoListSuppliedElement;
 }
 declare global {
     interface HTMLGoShoppinListAppElement extends Components.GoShoppinListApp, HTMLStencilElement {
@@ -88,16 +94,36 @@ declare global {
         prototype: HTMLListTitleElement;
         new (): HTMLListTitleElement;
     };
+    interface HTMLNoListSuppliedElementEventMap {
+        "createList": any;
+        "loadList": any;
+    }
+    interface HTMLNoListSuppliedElement extends Components.NoListSupplied, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLNoListSuppliedElementEventMap>(type: K, listener: (this: HTMLNoListSuppliedElement, ev: NoListSuppliedCustomEvent<HTMLNoListSuppliedElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLNoListSuppliedElementEventMap>(type: K, listener: (this: HTMLNoListSuppliedElement, ev: NoListSuppliedCustomEvent<HTMLNoListSuppliedElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLNoListSuppliedElement: {
+        prototype: HTMLNoListSuppliedElement;
+        new (): HTMLNoListSuppliedElement;
+    };
     interface HTMLElementTagNameMap {
         "go-shoppin-list-app": HTMLGoShoppinListAppElement;
         "item-adder": HTMLItemAdderElement;
         "list-display": HTMLListDisplayElement;
         "list-item": HTMLListItemElement;
         "list-title": HTMLListTitleElement;
+        "no-list-supplied": HTMLNoListSuppliedElement;
     }
 }
 declare namespace LocalJSX {
     interface GoShoppinListApp {
+        "listKeyProp"?: string;
     }
     interface ItemAdder {
         "onAddListItem"?: (event: ItemAdderCustomEvent<any>) => void;
@@ -106,7 +132,6 @@ declare namespace LocalJSX {
         "incomingItems"?: Object[];
     }
     interface ListItem {
-        "identifier"?: number;
         "onRemoveListItem"?: (event: ListItemCustomEvent<any>) => void;
         "onUpdateListItem"?: (event: ListItemCustomEvent<any>) => void;
         "quantity"?: number;
@@ -119,12 +144,17 @@ declare namespace LocalJSX {
          */
         "title"?: string;
     }
+    interface NoListSupplied {
+        "onCreateList"?: (event: NoListSuppliedCustomEvent<any>) => void;
+        "onLoadList"?: (event: NoListSuppliedCustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         "go-shoppin-list-app": GoShoppinListApp;
         "item-adder": ItemAdder;
         "list-display": ListDisplay;
         "list-item": ListItem;
         "list-title": ListTitle;
+        "no-list-supplied": NoListSupplied;
     }
 }
 export { LocalJSX as JSX };
@@ -136,6 +166,7 @@ declare module "@stencil/core" {
             "list-display": LocalJSX.ListDisplay & JSXBase.HTMLAttributes<HTMLListDisplayElement>;
             "list-item": LocalJSX.ListItem & JSXBase.HTMLAttributes<HTMLListItemElement>;
             "list-title": LocalJSX.ListTitle & JSXBase.HTMLAttributes<HTMLListTitleElement>;
+            "no-list-supplied": LocalJSX.NoListSupplied & JSXBase.HTMLAttributes<HTMLNoListSuppliedElement>;
         }
     }
 }

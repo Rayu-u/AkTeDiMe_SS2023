@@ -1,4 +1,4 @@
-import { Component, State, Listen, h} from '@stencil/core';
+import { Component, State, Listen, h, Prop} from '@stencil/core';
 import { DataService, ListItem } from '../../utils/utils';
 
 
@@ -21,57 +21,87 @@ export class goShoppinListApp {
   
   @State() list;
 
-  async componentWillLoad() {
-    // good place to load data in.
-    // seems to just use normal js syntax for accessing rest APIs
-    // https://www.youtube.com/watch?v=S6RaX7EKVjw&list=PL1t38ZFD37GocR8Ujv_PGE95okFjSs9N1&index=8&ab_channel=CodingLocker
-    // fetch("URL")
-    //   .then(res => {
-    //     return res.json();
-    //   })
-    //   .then(parsedRes => {
-    //     var identifier = parsedRes['identifier'];
-    //     var goalcontent = identifier['identifier 2'];
-    //   })
-    // Tutorial end
+  @Prop() listKeyProp: string;
+  @State() listKey: string;
 
-    await DataService.getData().then(val  => this.list = val);
+  async componentWillLoad() {
+    if ((this.listKey && this.listKeyProp) == undefined) {
+      return;
+    } else if (this.listKeyProp != undefined) {
+      this.listKey = this.listKeyProp;
+    }
+    await DataService.getData(this.listKey).then(val  => this.list = val[0]);
     this.listItems = this.list.listItems;
-    // console.log(this.listItems);
   }
+
+  async reloadList() {
+    await DataService.getData(this.listKey).then(val  => this.listItems = val[0].listItems);
+  }
+
+  @Listen('createList')
+  async createList(event) {
+    let listTitle = event.detail.listTitle;
+    this.listKey = await DataService.createNewList(listTitle);
+    this.reloadList();
+  }n
   
+  @Listen('loadList')
+  async loadListByKey(event) {
+    this.listKey = event.detail;
+  }
+
   @Listen('addListItem')
-  addListItem(event) {
+  async addListItem(event) {
     // adds the item
-    let newListItem: ListItem = { id: event.detail.id, name: event.detail.name, quantity: event.detail.quantity, responsibleUser: event.detail.user };
-    this.listItems = [...this.listItems, newListItem];
+    let newListItem: ListItem = { name: event.detail.name, quantity: event.detail.quantity, responsibleUser: event.detail.user };
+    // this.listItems = [...this.listItems, newListItem];
+    await DataService.pushData([...this.listItems, newListItem], this.listKey);
+    this.reloadList();
   }
 
   @Listen('removeListItem')
-  removeListItem(event) {
+  async removeListItem(event) {
     // creates a new array with only elements which pass the test
-    this.listItems = this.listItems.filter((listItem) => {
-      return listItem.id != event.detail;
+    let newListItems = this.listItems.filter((listItem) => {
+      return listItem.name.localeCompare(event.detail.value) != 0
     });
+
+    await DataService.pushData(newListItems, this.listKey);
+    console.log(newListItems);
+    this.reloadList();
   }
 
   @Listen('updateListItem')
-  updateValue(event) {
+  async updateValue(event) {
     //in order for template to rerender
-    const listItems = this.listItems.concat([]);
+    const newListItems = this.listItems.concat([]);
 
-    let listItemToUpdate: ListItem = listItems.filter((item) => {
-      return item.id == event.detail.id;
+    
+
+    let listItemToUpdate: ListItem = newListItems.filter((item) => {
+      return item.name.localeCompare(event.detail.name.old) == 0
     })[0];
 
-    listItemToUpdate.name = event.detail.name;
-    listItemToUpdate.quantity = event.detail.quant;
-    listItemToUpdate.responsibleUser = event.detail.user;
+    // console.log(listItemToUpdate);
+    listItemToUpdate.name = event.detail.name.new;
+    listItemToUpdate.quantity = event.detail.quant.new;
+    listItemToUpdate.responsibleUser = event.detail.user.new;
 
-    this.listItems = listItems;
+    await DataService.pushData(newListItems, this.listKey);
+    // console.log(newListItems);
+    this.reloadList();
   }
 
   render() {
+    if (this.listKey == undefined) {
+      return (
+        <div class="sl-theme-light">
+          <div id="bounding-box">
+            <no-list-supplied class="stand-alone"></no-list-supplied>
+          </div>
+        </div>
+      );
+    }
     return (
       <div class="sl-theme-light">
         <div id="bounding-box">

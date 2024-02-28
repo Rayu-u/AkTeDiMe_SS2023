@@ -1,7 +1,6 @@
 import { DataController } from './data';
 
 export interface ListItem {
-  id: number;
   name: string;
   quantity: number;
   responsibleUser: string;
@@ -12,7 +11,6 @@ export interface ListItem {
 let users = ['Michelle', 'Christian', 'Melanie'];
 
 let listItem: ListItem = {
-  id: 0,
   name: 'Hokkaido Kürbis',
   quantity: 6,
   responsibleUser: users[0],
@@ -27,7 +25,6 @@ export let shoppingList = {
 };
 
 let anotherListItem: ListItem = {
-  id: 1,
   name: 'Creme Fraiche',
   quantity: 2,
   responsibleUser: users[1],
